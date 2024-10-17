@@ -1,10 +1,8 @@
 # Environments
 
-A VS Code extension to manage environments from your .env files.
+A VS Code extension to keep track of tasks for the day.
 
 ## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
 ## Extension Settings
 
