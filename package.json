@@ -1,20 +1,20 @@
 {
-  "name": "environments",
-  "displayName": "Environments",
+  "name": "grind",
+  "displayName": "Grind",
   "publisher": "isfopo",
-  "description": "Manage your environments from your sidebar",
-  "version": "0.0.39",
+  "description": "",
+  "version": "0.0.0",
   "icon": "assets/icon.png",
   "type": "module",
   "engines": {
     "vscode": "^1.91.0"
   },
   "bugs": {
-    "url": "https://github.com/isfopo/environments/issues"
+    "url": "https://github.com/isfopo/grind/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isfopo/environments"
+    "url": "https://github.com/isfopo/grind"
   },
   "categories": [
     "Other"
@@ -23,88 +23,88 @@
   "contributes": {
     "commands": [
       {
-        "command": "environments.create",
+        "command": "grind.create",
         "title": "Create",
         "icon": "$(add)"
       },
       {
-        "command": "environments.refresh",
+        "command": "grind.refresh",
         "title": "Refresh",
         "icon": "$(refresh)"
       },
       {
-        "command": "environments.add",
+        "command": "grind.add",
         "title": "Add",
         "icon": "$(add)"
       },
       {
-        "command": "environments.set-preset",
+        "command": "grind.set-preset",
         "title": "Set Preset",
         "icon": "$(library)"
       },
       {
-        "command": "environments.edit",
+        "command": "grind.edit",
         "title": "Edit",
         "icon": "$(edit)"
       },
       {
-        "command": "environments.flip",
+        "command": "grind.flip",
         "title": "Flip",
         "icon": "$(sync)"
       },
       {
-        "command": "environments.rename",
+        "command": "grind.rename",
         "title": "Rename"
       },
       {
-        "command": "environments.duplicate",
+        "command": "grind.duplicate",
         "title": "Duplicate"
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "environments.refresh",
+          "command": "grind.refresh",
           "group": "navigation",
-          "when": "view == environments-sidebar || view == environments-explorer"
+          "when": "view == grind-sidebar || view == grind-explorer"
         },
         {
-          "command": "environments.create",
+          "command": "grind.create",
           "group": "context",
-          "when": "view == environments-sidebar || view == environments-explorer"
+          "when": "view == grind-sidebar || view == grind-explorer"
         }
       ],
       "view/item/context": [
         {
-          "command": "environments.create",
+          "command": "grind.create",
           "when": "viewItem == workspaceFolder",
           "group": "inline"
         },
         {
-          "command": "environments.add",
+          "command": "grind.add",
           "when": "viewItem == file || viewItem == group-has-presets || viewItem == group",
           "group": "inline"
         },
         {
-          "command": "environments.set-preset",
+          "command": "grind.set-preset",
           "when": "viewItem == group-has-presets",
           "group": "inline"
         },
         {
-          "command": "environments.rename",
+          "command": "grind.rename",
           "when": "viewItem == file"
         },
         {
-          "command": "environments.duplicate",
+          "command": "grind.duplicate",
           "when": "viewItem == file"
         },
         {
-          "command": "environments.edit",
+          "command": "grind.edit",
           "when": "viewItem == keyValue-string",
           "group": "inline"
         },
         {
-          "command": "environments.flip",
+          "command": "grind.flip",
           "when": "viewItem == keyValue-bool",
           "group": "inline"
         }
@@ -112,35 +112,35 @@
     },
     "viewsWelcome": [
       {
-        "view": "environments-sidebar",
-        "contents": "No environment files found. \n[Create file](command:environments.create)"
+        "view": "grind-sidebar",
+        "contents": "No environment files found. \n[Create file](command:grind.create)"
       },
       {
-        "view": "environments-explorer",
-        "contents": "No environment files found. \n[Create file](command:environments.create)"
+        "view": "grind-explorer",
+        "contents": "No environment files found. \n[Create file](command:grind.create)"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "environments-sidebar-view",
-          "title": "Environments",
+          "id": "grind-sidebar-view",
+          "title": "grind",
           "icon": "assets/icon.svg"
         }
       ]
     },
     "views": {
-      "environments-sidebar-view": [
+      "grind-sidebar-view": [
         {
-          "id": "environments-sidebar",
-          "name": "Environments",
+          "id": "grind-sidebar",
+          "name": "grind",
           "icon": "media/icon.svg"
         }
       ],
       "explorer": [
         {
-          "id": "environments-explorer",
-          "name": "Environments",
+          "id": "grind-explorer",
+          "name": "grind",
           "icon": "media/icon.svg"
         }
       ]

@@ -24,10 +24,10 @@ export class EnvironmentTreeviewProvider
 
   register() {
     const trees = [
-      vscode.window.createTreeView("environments-sidebar", {
+      vscode.window.createTreeView("grind-sidebar", {
         treeDataProvider: this,
       }),
-      vscode.window.createTreeView("environments-explorer", {
+      vscode.window.createTreeView("grind-explorer", {
         treeDataProvider: this,
       }),
     ];

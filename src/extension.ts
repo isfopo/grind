@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new EnvironmentTreeviewProvider(context).register();
 
   vscode.commands.registerCommand(
-    "environments.create",
+    "grind.create",
     async (element: EnvironmentWorkspaceFolderTreeItem) => {
       const { workspaceFolders } = vscode.workspace;
       let workplaceFolder: string | undefined;
@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "environments.set-preset",
+    "grind.set-preset",
     async (element: EnvironmentGroupTreeItem) => {
       const preset = await vscode.window.showQuickPick(element.presets, {
         placeHolder: "Select a preset",
@@ -60,7 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "environments.add",
+    "grind.add",
     async (element: EnvironmentFileTreeItem | EnvironmentGroupTreeItem) => {
       const key = await vscode.window.showInputBox({
         prompt: "Enter the key for the new environment variable",
@@ -87,12 +87,12 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  vscode.commands.registerCommand("environments.refresh", () =>
+  vscode.commands.registerCommand("grind.refresh", () =>
     treeDataProvider.refresh()
   );
 
   vscode.commands.registerCommand(
-    "environments.edit",
+    "grind.edit",
     async (element: EnvironmentKeyValueTreeItem) => {
       if (element.value.type === "bool") {
         const quickPick = vscode.window.createQuickPick();
@@ -143,7 +143,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "environments.flip",
+    "grind.flip",
     async (element: EnvironmentKeyValueTreeItem) => {
       if (element.value.type === "bool") {
         treeDataProvider.flip(element);
@@ -152,7 +152,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "environments.rename",
+    "grind.rename",
     async (element: EnvironmentFileTreeItem) => {
       const newFile = await vscode.window.showInputBox({
         prompt: "Enter the new name for the environment file",
@@ -180,7 +180,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "environments.duplicate",
+    "grind.duplicate",
     async (element: EnvironmentFileTreeItem) => {
       const newFileName = await vscode.window.showInputBox({
         prompt: "Enter the name for the duplicated environment file",

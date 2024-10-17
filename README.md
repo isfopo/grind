@@ -1,4 +1,4 @@
-# Environments
+# grind
 
 A VS Code extension to keep track of tasks for the day.
 
