@@ -23,42 +23,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "grind.create",
-        "title": "Create",
-        "icon": "$(add)"
-      },
-      {
-        "command": "grind.refresh",
-        "title": "Refresh",
-        "icon": "$(refresh)"
-      },
-      {
         "command": "grind.add",
         "title": "Add",
         "icon": "$(add)"
       },
       {
-        "command": "grind.set-preset",
-        "title": "Set Preset",
-        "icon": "$(library)"
-      },
-      {
         "command": "grind.edit",
         "title": "Edit",
         "icon": "$(edit)"
-      },
-      {
-        "command": "grind.flip",
-        "title": "Flip",
-        "icon": "$(sync)"
-      },
-      {
-        "command": "grind.rename",
-        "title": "Rename"
-      },
-      {
-        "command": "grind.duplicate",
-        "title": "Duplicate"
       }
     ],
     "menus": {
@@ -67,59 +39,21 @@
           "command": "grind.refresh",
           "group": "navigation",
           "when": "view == grind-sidebar || view == grind-explorer"
-        },
-        {
-          "command": "grind.create",
-          "group": "context",
-          "when": "view == grind-sidebar || view == grind-explorer"
         }
       ],
       "view/item/context": [
-        {
-          "command": "grind.create",
-          "when": "viewItem == workspaceFolder",
-          "group": "inline"
-        },
         {
           "command": "grind.add",
           "when": "viewItem == file || viewItem == group-has-presets || viewItem == group",
           "group": "inline"
         },
         {
-          "command": "grind.set-preset",
-          "when": "viewItem == group-has-presets",
-          "group": "inline"
-        },
-        {
-          "command": "grind.rename",
-          "when": "viewItem == file"
-        },
-        {
-          "command": "grind.duplicate",
-          "when": "viewItem == file"
-        },
-        {
           "command": "grind.edit",
           "when": "viewItem == keyValue-string",
-          "group": "inline"
-        },
-        {
-          "command": "grind.flip",
-          "when": "viewItem == keyValue-bool",
           "group": "inline"
         }
       ]
     },
-    "viewsWelcome": [
-      {
-        "view": "grind-sidebar",
-        "contents": "No environment files found. \n[Create file](command:grind.create)"
-      },
-      {
-        "view": "grind-explorer",
-        "contents": "No environment files found. \n[Create file](command:grind.create)"
-      }
-    ],
     "viewsContainers": {
       "activitybar": [
         {
@@ -158,5 +92,8 @@
     "eslint": "^9.7.0",
     "typescript": "^5.5.3",
     "vite": "^5.3.3"
+  },
+  "dependencies": {
+    "proposal-temporal": "^0.9.0"
   }
 }
