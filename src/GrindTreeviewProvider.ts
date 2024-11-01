@@ -17,6 +17,9 @@ export class GrindTreeviewProvider
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+  }
+
+  register() {
     const trees = [
       vscode.window.createTreeView("grind-sidebar", {
         treeDataProvider: this,
@@ -36,6 +39,8 @@ export class GrindTreeviewProvider
         // if is todo item then open edit command
       });
     }
+
+    return this;
   }
 
   async add(element: DateTreeItem | TaskTreeItem, task: string): Promise<void> {

@@ -2,9 +2,13 @@ import * as vscode from "vscode";
 import { GrindTreeviewProvider } from "./GrindTreeviewProvider";
 import { DateTreeItem } from "./classes/TreeItems/DateTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
+import { Database } from "./classes/Database";
+import { Logger } from "./classes/Logger";
 
 export function activate(context: vscode.ExtensionContext) {
-  const treeDataProvider = new GrindTreeviewProvider(context);
+  const treeDataProvider = new GrindTreeviewProvider(context).register();
+  const logger = Logger.getInstance(context);
+  const db = Database.getInstance();
 
   vscode.commands.registerCommand(
     "grind.add",
@@ -36,9 +40,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  vscode.commands.registerCommand("grind.refresh", () =>
-    treeDataProvider.refresh()
-  );
+  vscode.commands.registerCommand("grind.refresh", () => {
+    logger.log.info("refresh");
+    treeDataProvider.refresh();
+  });
 }
 
 // this method is called when your extension is deactivated
