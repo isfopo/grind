@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import { DateTreeItem } from "./classes/TreeItems/DateTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
-import { Database } from "./classes/Database";
-import { Logger } from "./classes/Logger";
+import { Logger } from "./services/Logger";
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -25,8 +24,6 @@ export class GrindTreeviewProvider
   }
 
   register() {
-    const db = Database.getInstance();
-
     const trees = [
       vscode.window.createTreeView("grind-sidebar", {
         treeDataProvider: this,

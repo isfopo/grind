@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
 export interface ConfigurationTypes {
-  "grind.localDatabaseConnectionPath": string;
+  localDatabaseConnectionPath: string;
 }
 
 export class Configuration {
