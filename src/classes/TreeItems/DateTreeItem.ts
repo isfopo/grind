@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { Temporal } from "proposal-temporal";
+import { Temporal } from "@js-temporal/polyfill";
 import { TaskTreeItem } from "./TaskTreeItem.js";
 
 export class DateTreeItem extends vscode.TreeItem {
