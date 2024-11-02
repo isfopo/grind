@@ -1,15 +1,15 @@
 import * as vscode from "vscode";
 import { GrindTreeviewProvider } from "./GrindTreeviewProvider";
-import { DateTreeItem } from "./classes/TreeItems/DateTreeItem";
+import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
-import { Configuration } from "./classes/Configuration";
+import { Configuration } from "./services/Configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
 
   vscode.commands.registerCommand(
     "grind.add",
-    async (element: DateTreeItem | TaskTreeItem) => {
+    async (element: DayTreeItem | TaskTreeItem) => {
       const task = await vscode.window.showInputBox({
         prompt: "Enter task",
       });

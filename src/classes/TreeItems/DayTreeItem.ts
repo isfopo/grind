@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { TaskTreeItem } from "./TaskTreeItem.js";
 
-export class DateTreeItem extends vscode.TreeItem {
+export class DayTreeItem extends vscode.TreeItem {
   constructor(
     public readonly date: Date,
     public readonly children: TaskTreeItem,

@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { DateTreeItem } from "./classes/TreeItems/DateTreeItem";
+import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
 import { Logger } from "./services/Logger";
 
@@ -47,7 +47,7 @@ export class GrindTreeviewProvider
     return this;
   }
 
-  async add(element: DateTreeItem | TaskTreeItem, task: string): Promise<void> {
+  async add(element: DayTreeItem | TaskTreeItem, task: string): Promise<void> {
     // add new todo for the day
 
     this.refresh();
@@ -74,11 +74,11 @@ export class GrindTreeviewProvider
   }
 
   getChildren(
-    element?: DateTreeItem | TaskTreeItem | undefined
+    element?: DayTreeItem | TaskTreeItem | undefined
   ): vscode.ProviderResult<vscode.TreeItem[]> {
     if (!element) {
       return; // recent dates
-    } else if (element instanceof DateTreeItem) {
+    } else if (element instanceof DayTreeItem) {
       return; // tasks from given date
     } else {
       return; // subtasks of task
