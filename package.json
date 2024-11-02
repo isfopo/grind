@@ -21,16 +21,6 @@
   ],
   "browser": "./dist/extension.js",
   "contributes": {
-    "configuration": {
-      "title": "Grind",
-      "properties": {
-        "grind.localDatabaseConnectionPath": {
-          "type": "string",
-          "default": "file:${extensionPath}/local.db",
-          "description": "The location of you local database."
-        }
-      }
-    },
     "commands": [
       {
         "command": "grind.add",
@@ -96,9 +86,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile-web",
-    "compile-web": "vite build",
-    "watch-web": "vite build"
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "clean": "rm -rf node_modules && npm install"
   },
   "devDependencies": {
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
@@ -108,8 +98,7 @@
     "drizzle-kit": "^0.27.0",
     "eslint": "^9.7.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.3"
+    "typescript": "^5.5.3"
   },
   "dependencies": {
     "-": "^0.0.1",

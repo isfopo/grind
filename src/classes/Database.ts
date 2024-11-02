@@ -1,5 +1,9 @@
+import { drizzle } from "drizzle-orm/libsql";
+import { Configuration } from "./Configuration";
+
 export class Database {
   private static _instance: Database;
+  static context: any;
 
   private constructor() {}
 
@@ -8,5 +12,9 @@ export class Database {
   }
 
   /** Connects or creates to file for database */
-  public connect() {}
+  public static connect() {
+    this.context = drizzle(
+      Configuration.get("grind.localDatabaseConnectionPath") as string
+    );
+  }
 }

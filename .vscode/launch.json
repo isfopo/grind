@@ -8,14 +8,12 @@
     {
       "name": "Run Web Extension",
       "type": "extensionHost",
-      "debugWebWorkerHost": true,
       "request": "launch",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionDevelopmentKind=web"
-      ],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "watch-web"
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "preLaunchTask": "grind:build",
+      "sourceMaps": true
     },
     {
       "name": "Extension Tests",
@@ -25,10 +23,10 @@
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionDevelopmentKind=web",
-        "--extensionTestsPath=${workspaceFolder}/dist/test/suite/index"
+        "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
       ],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "watch-web"
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "preLaunchTask": "grind:build"
     }
   ]
 }

@@ -20,6 +20,8 @@ export class GrindTreeviewProvider
   }
 
   register() {
+    // const db = Database.getInstance();
+
     const trees = [
       vscode.window.createTreeView("grind-sidebar", {
         treeDataProvider: this,
