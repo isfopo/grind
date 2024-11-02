@@ -1,6 +1,8 @@
 import * as vscode from "vscode";
 import { DateTreeItem } from "./classes/TreeItems/DateTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
+import { Database } from "./classes/Database";
+import { Logger } from "./classes/Logger";
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -15,12 +17,15 @@ export class GrindTreeviewProvider
     vscode.TreeItem | undefined | void
   > = this._onDidChangeTreeData.event;
 
+  readonly logger: Logger;
+
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+    this.logger = Logger.getInstance(context);
   }
 
   register() {
-    // const db = Database.getInstance();
+    const db = Database.getInstance();
 
     const trees = [
       vscode.window.createTreeView("grind-sidebar", {
@@ -58,7 +63,11 @@ export class GrindTreeviewProvider
   }
 
   refresh() {
-    this._onDidChangeTreeData?.fire();
+    try {
+      this._onDidChangeTreeData?.fire();
+    } catch (e) {
+      this.logger.log(e as string);
+    }
   }
 
   getTreeItem(
