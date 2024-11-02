@@ -8,13 +8,14 @@ export class Database {
   private constructor() {}
 
   public static getInstance(): Database {
-    return this._instance || (this._instance = new this());
-  }
+    if (!this._instance) {
+      this._instance = new this();
+      const dbPath = Configuration.get(
+        "grind.localDatabaseConnectionPath"
+      ) as string;
+      this.context = drizzle(dbPath);
+    }
 
-  /** Connects or creates to file for database */
-  public static connect() {
-    this.context = drizzle(
-      Configuration.get("grind.localDatabaseConnectionPath") as string
-    );
+    return this._instance;
   }
 }
