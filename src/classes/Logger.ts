@@ -1,12 +1,10 @@
 import * as vscode from "vscode";
-import { getExtensionLogger, IVSCodeExtLogger } from "@vscode-logging/logger";
 
 export class Logger {
   static _instance: Logger;
 
   private readonly context: vscode.ExtensionContext;
   private readonly channel: vscode.LogOutputChannel;
-  readonly log: IVSCodeExtLogger;
 
   private constructor(context: vscode.ExtensionContext) {
     this.context = context;
@@ -14,15 +12,6 @@ export class Logger {
     // The channel for printing the log.
     this.channel = vscode.window.createOutputChannel("Grind - Log", {
       log: true,
-    });
-
-    this.log = getExtensionLogger({
-      extName: "Root.child",
-      level: "info",
-      logPath: context.logUri.fsPath,
-      logOutputChannel: this.channel,
-      sourceLocationTracking: true,
-      logConsole: false,
     });
   }
 
@@ -32,5 +21,13 @@ export class Logger {
     }
 
     return Logger._instance;
+  }
+
+  public show() {
+    this.channel.show();
+  }
+
+  public log(message: string) {
+    this.channel.appendLine(message);
   }
 }
