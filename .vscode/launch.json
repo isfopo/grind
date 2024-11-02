@@ -13,7 +13,9 @@
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
       "preLaunchTask": "grind:build",
-      "sourceMaps": true
+      "sourceMaps": true,
+      "problemMatcher": "$tsc-watch",
+      "auto": true
     },
     {
       "name": "Extension Tests",
