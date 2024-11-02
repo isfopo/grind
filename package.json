@@ -5,7 +5,6 @@
   "description": "",
   "version": "0.0.1",
   "icon": "assets/icon.png",
-  "type": "module",
   "engines": {
     "vscode": "^1.91.0"
   },
@@ -19,6 +18,7 @@
   "categories": [
     "Other"
   ],
+  "main": "./out/extension",
   "browser": "./dist/extension.js",
   "contributes": {
     "commands": [
