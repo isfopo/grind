@@ -6,7 +6,6 @@ import { Configuration } from "./classes/Configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
-  // const logger = Logger.getInstance(context);
 
   vscode.commands.registerCommand(
     "grind.add",
@@ -39,7 +38,6 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand("grind.refresh", () => {
-    // logger.log.info("refresh");
     treeDataProvider.refresh();
   });
 }
