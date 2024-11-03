@@ -1,13 +1,13 @@
 import { Memento } from "vscode";
 
-export class LocalStorageService {
+export class Storage {
   constructor(private storage: Memento) {}
 
-  public getValue<T>(key: string): T {
+  public get<T>(key: string): T {
     return this.storage.get<T>(key, null as T);
   }
 
-  public setValue<T>(key: string, value: T) {
+  public set<T>(key: string, value: T) {
     this.storage.update(key, value);
   }
 }
