@@ -6,6 +6,11 @@ import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
 import dayjs = require("dayjs");
+import dayOfYear = require("dayjs/plugin/dayOfYear");
+
+dayjs.extend(dayOfYear);
+
+const STORAGE_SCOPE: "global" | "workspace" = "global"; // Allow this to be set to workplace storage via settings
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -25,7 +30,10 @@ export class GrindTreeviewProvider
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
-    this.storage = new Storage(context.globalState);
+    this.storage = new Storage(
+      STORAGE_SCOPE === "global" ? context.globalState : context.workspaceState
+    );
+
     this.logger = Logger.getInstance(context);
   }
 
@@ -39,10 +47,6 @@ export class GrindTreeviewProvider
         treeDataProvider: this,
       }),
     ];
-
-    // create or connect db
-
-    // create command
 
     for (const tree of trees) {
       tree.onDidChangeSelection(async (e): Promise<void> => {
