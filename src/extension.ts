@@ -39,6 +39,12 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand("grind.refresh", () => {
     treeDataProvider.refresh();
   });
+
+  vscode.commands.registerCommand("grind.reset", () => {
+    treeDataProvider.reset();
+    vscode.window.showInformationMessage("Grind reset");
+    treeDataProvider.refresh();
+  });
 }
 
 // this method is called when your extension is deactivated

@@ -109,4 +109,8 @@ export class GrindTreeviewProvider
       return;
     }
   }
+
+  reset() {
+    this.storage.reset();
+  }
 }

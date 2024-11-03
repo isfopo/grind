@@ -36,6 +36,10 @@
         "command": "grind.refresh",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "grind.reset",
+        "title": "Reset"
       }
     ],
     "menus": {
@@ -49,7 +53,7 @@
       "view/item/context": [
         {
           "command": "grind.add",
-          "when": "viewItem == file || viewItem == group-has-presets || viewItem == group",
+          "when": "viewItem == day || viewItem == task",
           "group": "inline"
         },
         {

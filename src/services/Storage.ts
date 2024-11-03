@@ -7,7 +7,11 @@ export class Storage {
     return this.storage.get<T>(key, null as T);
   }
 
-  public set<T>(key: string, value: T) {
-    this.storage.update(key, value);
+  public async set<T>(key: string, value: T): Promise<void> {
+    await this.storage.update(key, value);
+  }
+
+  public reset(): void {
+    this.storage.keys().forEach((key) => this.storage.update(key, undefined));
   }
 }
