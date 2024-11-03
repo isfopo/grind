@@ -2,11 +2,16 @@ import * as vscode from "vscode";
 import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
 import { Logger } from "./services/Logger";
+import { Storage } from "./services/Storage";
+import { Day } from "./classes/entities/Day";
+import { Task } from "./classes/entities/Task";
+import dayjs = require("dayjs");
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
 {
-  context: vscode.ExtensionContext;
+  readonly context: vscode.ExtensionContext;
+  readonly storage: Storage;
 
   private _onDidChangeTreeData: vscode.EventEmitter<
     vscode.TreeItem | undefined | void
@@ -20,6 +25,7 @@ export class GrindTreeviewProvider
 
   constructor(context: vscode.ExtensionContext) {
     this.context = context;
+    this.storage = new Storage(context.globalState);
     this.logger = Logger.getInstance(context);
   }
 
@@ -76,12 +82,24 @@ export class GrindTreeviewProvider
   getChildren(
     element?: DayTreeItem | TaskTreeItem | undefined
   ): vscode.ProviderResult<vscode.TreeItem[]> {
-    if (!element) {
+    if (element === undefined) {
+      const today = dayjs().startOf("day");
+
       return; // recent dates
     } else if (element instanceof DayTreeItem) {
-      return; // tasks from given date
+      const today = this.storage.get<Day>(element.date);
+
+      return today.tasks.map(
+        (t) => new TaskTreeItem(this.storage.get<Task>(t))
+      );
+    } else if (element instanceof TaskTreeItem) {
+      const task = this.storage.get<Task>(element.id);
+
+      return task.subtasks.map(
+        (t) => new TaskTreeItem(this.storage.get<Task>(t))
+      );
     } else {
-      return; // subtasks of task
+      return;
     }
   }
 }
