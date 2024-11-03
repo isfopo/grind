@@ -85,13 +85,14 @@ export class GrindTreeviewProvider
     if (element === undefined) {
       const today = Day.today();
 
-      const day = this.storage.get<Day>(today);
+      const day = Day.parse(this.storage.get(today));
 
       if (!day) {
         this.storage.set(today, new Day(today));
+        return [Day.parse(this.storage.get(today)).toTreeItem()];
+      } else {
+        return [day.toTreeItem()];
       }
-
-      return [this.storage.get<Day>(today).toTreeItem()];
     } else if (element instanceof DayTreeItem) {
       const today = this.storage.get<Day>(element.day.date);
 

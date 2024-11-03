@@ -9,9 +9,9 @@ export class Day {
   date: string;
   tasks: TaskId[];
 
-  constructor(date: string) {
+  constructor(date: string, tasks?: TaskId[]) {
     this.date = date;
-    this.tasks = [];
+    this.tasks = tasks ?? [];
   }
 
   stringify() {
@@ -21,8 +21,12 @@ export class Day {
     });
   }
 
-  static parse(json: string) {
-    return JSON.parse(json) as Day;
+  static parse(json: Day | string) {
+    if (typeof json === "string") {
+      return JSON.parse(json) as Day;
+    } else {
+      return new Day(json.date, json.tasks);
+    }
   }
 
   static today() {
