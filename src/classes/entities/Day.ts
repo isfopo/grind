@@ -1,10 +1,10 @@
 import { TaskId } from "./Task";
 
 export class Day {
-  date: Date;
+  date: string;
   tasks: TaskId[];
 
-  constructor(date: Date) {
+  constructor(date: string) {
     this.date = date;
     this.tasks = [];
   }

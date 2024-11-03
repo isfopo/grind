@@ -3,7 +3,7 @@ import { TaskTreeItem } from "./TaskTreeItem.js";
 
 export class DayTreeItem extends vscode.TreeItem {
   constructor(
-    public readonly date: Date,
+    public readonly date: string,
     public readonly children: TaskTreeItem,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode
       .TreeItemCollapsibleState.None
