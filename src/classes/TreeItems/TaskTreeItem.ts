@@ -14,5 +14,6 @@ export class TaskTreeItem extends vscode.TreeItem {
     this.id = task.id;
     this.tooltip = task.label;
     this.description = task.label;
+    this.contextValue = "task";
   }
 }

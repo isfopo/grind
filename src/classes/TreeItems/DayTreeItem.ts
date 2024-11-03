@@ -11,7 +11,7 @@ export class DayTreeItem extends vscode.TreeItem {
   ) {
     super(day.date.toString(), collapsibleState);
     this.children = day.tasks;
-    this.description = `Tasks for ${day.date.toLocaleString()}`;
-    this.tooltip = this.description;
+    this.tooltip = `Tasks for ${day.date.toLocaleString()}`;
+    this.contextValue = "day";
   }
 }

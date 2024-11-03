@@ -54,7 +54,7 @@
         },
         {
           "command": "grind.edit",
-          "when": "viewItem == keyValue-string",
+          "when": "viewItem == task",
           "group": "inline"
         }
       ]
