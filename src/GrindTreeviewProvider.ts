@@ -54,18 +54,23 @@ export class GrindTreeviewProvider
   }
 
   async add(element: DayTreeItem | TaskTreeItem, task: string): Promise<void> {
-    // add new todo for the day
+    if (element instanceof DayTreeItem) {
+      const id = element.day.addTask();
+      this.storage.set(id, new Task(id, element.day.date, task));
+      this.storage.set(element.day.date, element.day);
+    } else {
+    }
 
     this.refresh();
   }
 
-  async edit(element: TaskTreeItem, update: string) {
+  async edit(element: TaskTreeItem, update: string): Promise<void> {
     // Edit given todo
 
     this.refresh();
   }
 
-  refresh() {
+  refresh(): void {
     try {
       this._onDidChangeTreeData?.fire();
     } catch (e) {

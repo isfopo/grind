@@ -15,7 +15,7 @@ export class Task {
     this.subtasks = [];
   }
 
-  stringify() {
+  stringify(): string {
     return JSON.stringify({
       id: this.id,
       day: this.day,
@@ -25,7 +25,14 @@ export class Task {
     });
   }
 
-  static parse(json: string) {
+  static parse(json: string): Task {
     return JSON.parse(json) as Task;
+  }
+
+  static generateTaskId(length: number = 21): string {
+    return Math.ceil(Math.random() * Date.now())
+      .toPrecision(length)
+      .toString()
+      .replace(".", "");
   }
 }

@@ -1,4 +1,4 @@
-import { TaskId } from "./Task";
+import { Task, TaskId } from "./Task";
 import dayjs = require("dayjs");
 import dayOfYear = require("dayjs/plugin/dayOfYear");
 import { DayTreeItem } from "../TreeItems/DayTreeItem";
@@ -35,5 +35,11 @@ export class Day {
 
   toTreeItem() {
     return new DayTreeItem(this);
+  }
+
+  addTask(): string {
+    const id = Task.generateTaskId();
+    this.tasks.push(id);
+    return id;
   }
 }

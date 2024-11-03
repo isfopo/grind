@@ -13,7 +13,6 @@ export class TaskTreeItem extends vscode.TreeItem {
     super(task.label, collapsibleState);
     this.id = task.id;
     this.tooltip = task.label;
-    this.description = task.label;
     this.contextValue = "task";
   }
 }
