@@ -2,7 +2,6 @@ import * as vscode from "vscode";
 import { GrindTreeviewProvider } from "./GrindTreeviewProvider";
 import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
-import { Configuration } from "./services/Configuration";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
