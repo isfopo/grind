@@ -14,4 +14,18 @@ export class Task {
     this.completed = completed ?? false;
     this.subtasks = [];
   }
+
+  stringify() {
+    return JSON.stringify({
+      id: this.id,
+      day: this.day,
+      label: this.label,
+      subtasks: this.subtasks,
+      completed: this.completed,
+    });
+  }
+
+  static parse(json: string) {
+    return JSON.parse(json) as Task;
+  }
 }
