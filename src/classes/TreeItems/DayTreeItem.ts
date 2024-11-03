@@ -1,5 +1,7 @@
 import * as vscode from "vscode";
 import { Day } from "../entities/Day.js";
+import { TaskTreeItem } from "./TaskTreeItem.js";
+import { Task } from "../entities/Task.js";
 
 export class DayTreeItem extends vscode.TreeItem {
   children: string[];

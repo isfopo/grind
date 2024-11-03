@@ -7,12 +7,18 @@ export class Task {
   subtasks: TaskId[];
   completed: boolean;
 
-  constructor(id: TaskId, day: string, label: string, completed?: boolean) {
+  constructor(
+    id: TaskId,
+    day: string,
+    label: string,
+    tasks?: TaskId[],
+    completed?: boolean
+  ) {
     this.id = id;
     this.day = day;
     this.label = label;
     this.completed = completed ?? false;
-    this.subtasks = [];
+    this.subtasks = tasks ?? [];
   }
 
   stringify(): string {
@@ -34,5 +40,11 @@ export class Task {
       .toPrecision(length)
       .toString()
       .replace(".", "");
+  }
+
+  addSubtask() {
+    const id = Task.generateTaskId();
+    this.subtasks.push(id);
+    return id;
   }
 }
