@@ -5,10 +5,6 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
-import dayjs = require("dayjs");
-import dayOfYear = require("dayjs/plugin/dayOfYear");
-
-dayjs.extend(dayOfYear);
 
 const STORAGE_SCOPE: "global" | "workspace" = "global"; // Allow this to be set to workplace storage via settings
 
@@ -87,11 +83,17 @@ export class GrindTreeviewProvider
     element?: DayTreeItem | TaskTreeItem | undefined
   ): vscode.ProviderResult<vscode.TreeItem[]> {
     if (element === undefined) {
-      const today = dayjs().startOf("day");
+      const today = Day.today();
 
-      return; // recent dates
+      const day = this.storage.get<Day>(today);
+
+      if (!day) {
+        this.storage.set(today, new Day(today));
+      }
+
+      return [this.storage.get<Day>(today).toTreeItem()];
     } else if (element instanceof DayTreeItem) {
-      const today = this.storage.get<Day>(element.date);
+      const today = this.storage.get<Day>(element.day.date);
 
       return today.tasks.map(
         (t) => new TaskTreeItem(this.storage.get<Task>(t))

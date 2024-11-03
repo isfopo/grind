@@ -1,16 +1,17 @@
 import * as vscode from "vscode";
-import { TaskTreeItem } from "./TaskTreeItem.js";
+import { Day } from "../entities/Day.js";
 
 export class DayTreeItem extends vscode.TreeItem {
+  children: string[];
+
   constructor(
-    public readonly date: string,
-    public readonly children: TaskTreeItem,
+    public readonly day: Day,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState = vscode
       .TreeItemCollapsibleState.None
   ) {
-    super(date.toString(), collapsibleState);
-    this.children = children;
-    this.description = `Tasks for ${date.toLocaleString()}`;
+    super(day.date.toString(), collapsibleState);
+    this.children = day.tasks;
+    this.description = `Tasks for ${day.date.toLocaleString()}`;
     this.tooltip = this.description;
   }
 }
