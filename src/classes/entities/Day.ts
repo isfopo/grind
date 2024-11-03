@@ -8,4 +8,15 @@ export class Day {
     this.date = date;
     this.tasks = [];
   }
+
+  stringify() {
+    return JSON.stringify({
+      date: this.date,
+      tasks: this.tasks,
+    });
+  }
+
+  static parse(json: string) {
+    return JSON.parse(json) as Day;
+  }
 }
