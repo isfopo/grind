@@ -35,7 +35,7 @@
       {
         "command": "grind.refresh",
         "title": "Refresh",
-        "icon": "$(refresh)"
+        "icon": "$(refresh~spin)"
       },
       {
         "command": "grind.reset",
@@ -47,6 +47,11 @@
         {
           "command": "grind.refresh",
           "group": "navigation",
+          "when": "view == grind-sidebar || view == grind-explorer"
+        },
+        {
+          "command": "grind.reset",
+          "group": "context",
           "when": "view == grind-sidebar || view == grind-explorer"
         }
       ],
