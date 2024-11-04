@@ -29,11 +29,15 @@ export class Day {
     }
   }
 
-  static today() {
-    return dayjs().startOf("day").format("YYYY-MM-DD");
+  static today(): string {
+    return Day.format(dayjs().startOf("day"));
   }
 
-  toTreeItem() {
+  static format(day: dayjs.Dayjs) {
+    return day.format("YYYY-MM-DD");
+  }
+
+  toTreeItem(): DayTreeItem {
     return new DayTreeItem(this);
   }
 
