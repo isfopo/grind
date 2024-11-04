@@ -6,10 +6,10 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  build:
     permissions:
       contents: write
-    name: Build and Deploy
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +24,12 @@ jobs:
       - name: Build
         run: npm run build
 
+  deploy:
+    permissions:
+      contents: write
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
