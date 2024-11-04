@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     permissions:
       contents: write
     name: Build
@@ -24,19 +24,19 @@ jobs:
       - name: Build
         run: npm run build
 
-  deploy:
-    permissions:
-      contents: write
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
           pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
           registryUrl: https://marketplace.visualstudio.com
 
+  post-deploy:
+    permissions:
+      contents: write
+    name: Deploy
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
       - name: "Automated Version Bump"
         uses: "phips28/gh-action-bump-version@master"
         env:
