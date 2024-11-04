@@ -31,6 +31,11 @@ export class Task {
     });
   }
 
+  toggleCompleted(): Task {
+    this.completed = !this.completed;
+    return this;
+  }
+
   static parse(json: string): Task {
     return JSON.parse(json) as Task;
   }

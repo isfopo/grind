@@ -9,7 +9,6 @@ import dayjs = require("dayjs");
 import { reverse } from "dns";
 
 const STORAGE_SCOPE: "global" | "workspace" = "global"; // Allow this to be set to workplace storage via settings
-const NUMBER_OF_PREVIOUS_DAYS = 10;
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -49,7 +48,20 @@ export class GrindTreeviewProvider
 
     for (const tree of trees) {
       tree.onDidChangeSelection(async (e): Promise<void> => {
-        // if is todo item then open edit command
+        for (const item of e.selection as TaskTreeItem[]) {
+          const updated = item.task.toggleCompleted();
+          this.storage.set(item.task.id, updated);
+
+          for (const subtask of item.task.subtasks) {
+            const updated = this.storage.get<Task | undefined>(subtask);
+
+            if (updated) {
+              updated.completed = item.task.completed;
+              this.storage.set(subtask, updated);
+            }
+          }
+        }
+        this.refresh();
       });
     }
 
@@ -120,7 +132,7 @@ export class GrindTreeviewProvider
         (t) => new TaskTreeItem(this.storage.get<Task>(t))
       );
     } else if (element instanceof TaskTreeItem) {
-      const task = this.storage.get<Task>(element.id);
+      const task = this.storage.get<Task>(element.task.id);
 
       return task.subtasks.map(
         (t) => new TaskTreeItem(this.storage.get<Task>(t))
