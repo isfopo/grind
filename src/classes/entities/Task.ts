@@ -36,10 +36,16 @@ export class Task {
   }
 
   static generateTaskId(length: number = 21): string {
-    return Math.ceil(Math.random() * Date.now())
-      .toPrecision(length)
-      .toString()
-      .replace(".", "");
+    return (
+      Date.now().toString(36) +
+      Math.floor(
+        Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)
+      ).toString(36)
+    );
+  }
+
+  static validate(key: string): boolean {
+    return /^[0-9a-z]{13}[0-9a-z]{12}$/.exec(key) !== null;
   }
 
   addSubtask() {
