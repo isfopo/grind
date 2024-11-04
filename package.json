@@ -18,8 +18,7 @@
   "categories": [
     "Other"
   ],
-  "main": "./out/extension",
-  "browser": "./dist/extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
