@@ -112,17 +112,7 @@ export class GrindTreeviewProvider
         this.storage.set(today, new Day(today));
       }
 
-      const array = Array(NUMBER_OF_PREVIOUS_DAYS).fill(0);
-
-      return array
-        .map((_, i) => {
-          const date = this.storage.get<Day>(
-            Day.format(dayjs(today).subtract(i, "day"))
-          );
-          return date ? Day.parse(date).toTreeItem() : undefined;
-        })
-        .filter((d) => !!d)
-        .reverse() as DayTreeItem[];
+      return this.storage.getDates().map((d) => new DayTreeItem(d));
     } else if (element instanceof DayTreeItem) {
       const today = this.storage.get<Day>(element.day.date);
 

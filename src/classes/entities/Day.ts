@@ -37,6 +37,10 @@ export class Day {
     return day.format("YYYY-MM-DD");
   }
 
+  static validate(query: string): boolean {
+    return /^\d{4}-\d{2}-\d{2}$/.exec(query) !== null;
+  }
+
   toTreeItem(): DayTreeItem {
     return new DayTreeItem(this);
   }
