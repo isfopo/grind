@@ -5,6 +5,7 @@
   "description": "",
   "version": "0.0.2",
   "icon": "assets/icon.png",
+  "preview": true,
   "engines": {
     "vscode": "^1.91.0"
   },
