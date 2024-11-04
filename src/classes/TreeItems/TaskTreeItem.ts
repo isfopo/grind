@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import { Day } from "../entities/Day";
 import { Task, TaskId } from "../entities/Task";
+import { ENABLE_COMPLETIONS } from "../../consts";
 
 export class TaskTreeItem extends vscode.TreeItem {
   public readonly task: Task;
@@ -18,16 +19,22 @@ export class TaskTreeItem extends vscode.TreeItem {
       task.completed
     );
 
-    this.checkboxState = {
-      state: this.task.completed
-        ? vscode.TreeItemCheckboxState.Checked
-        : vscode.TreeItemCheckboxState.Unchecked,
-      tooltip: this.task.completed ? "Mark as incomplete" : "Mark as complete",
-      accessibilityInformation: {
-        label: this.task.completed ? "Mark as incomplete" : "Mark as complete",
-        role: "checkbox",
-      },
-    };
+    if (ENABLE_COMPLETIONS) {
+      this.checkboxState = {
+        state: this.task.completed
+          ? vscode.TreeItemCheckboxState.Checked
+          : vscode.TreeItemCheckboxState.Unchecked,
+        tooltip: this.task.completed
+          ? "Mark as incomplete"
+          : "Mark as complete",
+        accessibilityInformation: {
+          label: this.task.completed
+            ? "Mark as incomplete"
+            : "Mark as complete",
+          role: "checkbox",
+        },
+      };
+    }
 
     this.collapsibleState =
       this.task.subtasks.length > 0
