@@ -26,6 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
     async (element: TaskTreeItem) => {
       const update = await vscode.window.showInputBox({
         prompt: `Update task`,
+        value: element.label?.toString() ?? "",
       });
 
       if (!update) {
