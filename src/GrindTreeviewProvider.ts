@@ -5,8 +5,11 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
+import dayjs = require("dayjs");
+import { reverse } from "dns";
 
 const STORAGE_SCOPE: "global" | "workspace" = "global"; // Allow this to be set to workplace storage via settings
+const NUMBER_OF_PREVIOUS_DAYS = 10;
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -107,10 +110,19 @@ export class GrindTreeviewProvider
 
       if (!day) {
         this.storage.set(today, new Day(today));
-        return [Day.parse(this.storage.get(today)).toTreeItem()];
-      } else {
-        return [day.toTreeItem()];
       }
+
+      const array = Array(NUMBER_OF_PREVIOUS_DAYS).fill(0);
+
+      return array
+        .map((_, i) => {
+          const date = this.storage.get<Day>(
+            Day.format(dayjs(today).subtract(i, "day"))
+          );
+          return date ? Day.parse(date).toTreeItem() : undefined;
+        })
+        .filter((d) => !!d)
+        .reverse() as DayTreeItem[];
     } else if (element instanceof DayTreeItem) {
       const today = this.storage.get<Day>(element.day.date);
 
