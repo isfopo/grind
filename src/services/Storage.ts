@@ -16,7 +16,8 @@ export class Storage {
     return this.storage
       .keys()
       .filter((i) => Day.validate(i))
-      .map((i) => Day.parse(this.get(i)));
+      .map((i) => Day.parse(this.get(i)))
+      .filter((i) => i !== undefined) as Day[];
   };
 
   public reset(): void {

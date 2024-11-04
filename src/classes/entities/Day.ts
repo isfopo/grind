@@ -21,8 +21,10 @@ export class Day {
     });
   }
 
-  static parse(json: Day | string) {
-    if (typeof json === "string") {
+  static parse(json: Day | string | undefined): Day | undefined {
+    if (!json) {
+      return undefined;
+    } else if (typeof json === "string") {
       return JSON.parse(json) as Day;
     } else {
       return new Day(json.date, json.tasks);
