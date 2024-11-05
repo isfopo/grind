@@ -27,7 +27,7 @@ export class Day {
     } else if (typeof json === "string") {
       return JSON.parse(json) as Day;
     } else {
-      return new Day(json.date, json.tasks);
+      return new Day(json?.date, json?.tasks);
     }
   }
 

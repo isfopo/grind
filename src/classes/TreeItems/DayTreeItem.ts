@@ -9,7 +9,7 @@ export class DayTreeItem extends vscode.TreeItem {
   constructor(public readonly day: Day) {
     super(day.date.toString());
     this.day = day;
-    this.children = day.tasks;
+    this.children = day?.tasks ?? [];
     this.tooltip = `Tasks for ${day.date.toLocaleString()}`;
     this.contextValue = "day";
     this.collapsibleState =

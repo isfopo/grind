@@ -130,7 +130,7 @@ export class GrindTreeviewProvider
     } else if (element instanceof DayTreeItem) {
       const today = this.storage.get<Day>(element.day.date);
 
-      return today.tasks.map(
+      return today?.tasks.map(
         (t) => new TaskTreeItem(this.storage.get<Task>(t))
       );
     } else if (element instanceof TaskTreeItem) {
