@@ -49,19 +49,17 @@ export class GrindTreeviewProvider
     for (const tree of trees) {
       tree.onDidChangeSelection(async (e): Promise<void> => {
         for (const item of e.selection as TaskTreeItem[]) {
-          if (item instanceof TaskTreeItem) {
-            const updated = item.task?.toggleCompleted();
-            this.storage.set(item.task.id, updated);
-
-            for (const subtask of item.task.subtasks) {
-              const updated = this.storage.get<Task | undefined>(subtask);
-
-              if (updated) {
-                updated.completed = item.task.completed;
-                this.storage.set(subtask, updated);
-              }
-            }
-          }
+          // if (item instanceof TaskTreeItem) {
+          //   const updated = item.task?.toggleCompleted();
+          //   this.storage.set(item.task.id, updated);
+          //   for (const subtask of item.task.subtasks) {
+          //     const updated = this.storage.get<Task | undefined>(subtask);
+          //     if (updated) {
+          //       updated.completed = item.task.completed;
+          //       this.storage.set(subtask, updated);
+          //     }
+          //   }
+          // }
         }
         this.refresh();
       });
