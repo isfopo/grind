@@ -50,7 +50,7 @@ export class GrindTreeviewProvider
       tree.onDidChangeSelection(async (e): Promise<void> => {
         for (const item of e.selection as TaskTreeItem[]) {
           if (item instanceof TaskTreeItem) {
-            const updated = item.task.toggleCompleted();
+            const updated = item.task?.toggleCompleted();
             this.storage.set(item.task.id, updated);
 
             for (const subtask of item.task.subtasks) {
