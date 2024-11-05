@@ -41,10 +41,12 @@
       {
         "command": "grind.refresh",
         "title": "Refresh",
+        "category": "Grind",
         "icon": "$(refresh~spin)"
       },
       {
         "command": "grind.reset",
+        "category": "Grind",
         "title": "Reset"
       }
     ],
