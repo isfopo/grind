@@ -21,6 +21,12 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "activationEvents": [
+      "onCommand:grind.refresh",
+      "onCommand:grind.reset",
+      "onView:grind-explorer",
+      "onView:grind-sidebar"
+    ],
     "commands": [
       {
         "command": "grind.add",
@@ -103,12 +109,10 @@
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@types/node": "^20.14.10",
     "@types/vscode": "^1.91.0",
-    "@vscode-logging/logger": "^2.0.0",
     "eslint": "^9.7.0",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "-": "^0.0.1",
     "dayjs": "^1.11.13"
   }
 }
