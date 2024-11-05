@@ -2,7 +2,7 @@
   "name": "grind",
   "displayName": "Grind",
   "publisher": "isfopo",
-  "description": "",
+  "description": "A task manager for your daily struggle.",
   "version": "0.0.4",
   "icon": "assets/icon.png",
   "preview": true,
