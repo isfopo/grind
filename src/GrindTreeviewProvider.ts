@@ -5,10 +5,8 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
-import dayjs = require("dayjs");
-import { reverse } from "dns";
 
-const STORAGE_SCOPE: "global" | "workspace" = "global"; // Allow this to be set to workplace storage via settings
+const STORAGE_SCOPE: "global" | "workspace" = "workspace"; // Allow this to be set to workplace storage via settings
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
