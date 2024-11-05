@@ -12,7 +12,7 @@ export class Storage {
     await this.storage.update(key, value);
   }
 
-  getDates = (): Day[] => {
+  public getDates = (): Day[] => {
     return this.storage
       .keys()
       .filter((i) => Day.validate(i))
