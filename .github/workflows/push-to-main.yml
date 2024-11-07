@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: npm run vscode:prepublish
-
       - name: "Automated Version Bump"
         uses: "phips28/gh-action-bump-version@master"
         env:
