@@ -101,6 +101,10 @@ export class GrindTreeviewProvider
     this.refresh();
   }
 
+  copy(day: string) {
+    throw new Error("Method not implemented.");
+  }
+
   refresh(): void {
     try {
       this._onDidChangeTreeData?.fire();
@@ -119,7 +123,7 @@ export class GrindTreeviewProvider
     element?: DayTreeItem | TaskTreeItem | undefined
   ): vscode.ProviderResult<vscode.TreeItem[]> {
     if (element === undefined) {
-      const today = Day.today();
+      const today = Day.today;
 
       const day = Day.parse(this.storage.get(today));
 

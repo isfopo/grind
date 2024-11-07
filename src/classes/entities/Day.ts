@@ -31,8 +31,12 @@ export class Day {
     }
   }
 
-  static today(): string {
+  static get today(): string {
     return Day.format(dayjs().startOf("day"));
+  }
+
+  static daysAgo(days: number): string {
+    return Day.format(dayjs().startOf("day").subtract(days, "day"));
   }
 
   static format(day: dayjs.Dayjs) {

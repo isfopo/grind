@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { GrindTreeviewProvider } from "./GrindTreeviewProvider";
 import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
+import { Day } from "./classes/entities/Day";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
@@ -36,6 +37,16 @@ export function activate(context: vscode.ExtensionContext) {
       treeDataProvider.edit(element, update);
     }
   );
+
+  vscode.commands.registerCommand("grind.copy-today", () => {
+    treeDataProvider.copy(Day.today);
+  });
+
+  vscode.commands.registerCommand("grind.copy-yesterday", () => {
+    treeDataProvider.copy(Day.daysAgo(1));
+  });
+
+  vscode.commands.registerCommand("grind.copy-day", () => {});
 
   vscode.commands.registerCommand("grind.refresh", () => {
     treeDataProvider.refresh();
