@@ -28,6 +28,7 @@ export class Logger {
   }
 
   public log(message: string) {
+    this.show();
     this.channel.appendLine(message);
   }
 }
