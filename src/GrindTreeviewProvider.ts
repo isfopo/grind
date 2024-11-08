@@ -101,8 +101,36 @@ export class GrindTreeviewProvider
     this.refresh();
   }
 
-  copy(day: string) {
-    throw new Error("Method not implemented.");
+  async copy(key: string) {
+    const appendTasks = (tasks: string[], indent: number = 0): string => {
+      let result: string = "";
+
+      for (const task of tasks) {
+        const t = this.storage.get<Task>(task);
+        if (t) {
+          result = result.concat(
+            `${" ".repeat(indent)}- [${t.completed ? "x" : " "}] ${t.label}\n`
+          );
+          result = result + appendTasks(t.subtasks, indent + 2);
+        }
+      }
+
+      return result;
+    };
+
+    if (Day.validate(key)) {
+      const day = this.storage.get<Day>(key);
+
+      if (day) {
+        await vscode.env.clipboard.writeText(appendTasks(day.tasks));
+      }
+    } else if (Task.validate(key)) {
+      const task = this.storage.get<Task>(key);
+
+      if (task) {
+        await vscode.env.clipboard.writeText(appendTasks(task.subtasks));
+      }
+    }
   }
 
   refresh(): void {
