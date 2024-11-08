@@ -123,14 +123,19 @@ export class GrindTreeviewProvider
 
       if (day) {
         await vscode.env.clipboard.writeText(appendTasks(day.tasks));
+      } else {
+        vscode.window.showInformationMessage("No tasks found for this day.");
       }
     } else if (Task.validate(key)) {
       const task = this.storage.get<Task>(key);
 
       if (task) {
         await vscode.env.clipboard.writeText(appendTasks(task.subtasks));
+      } else {
+        vscode.window.showInformationMessage("No tasks found.");
       }
     }
+    vscode.window.showInformationMessage("Tasks copied.");
   }
 
   refresh(): void {
