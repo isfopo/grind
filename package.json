@@ -48,6 +48,21 @@
         "command": "grind.reset",
         "category": "Grind",
         "title": "Reset"
+      },
+      {
+        "command": "grind.copy-today",
+        "title": "Copy Today's Tasks",
+        "category": "Grind"
+      },
+      {
+        "command": "grind.copy-yesterday",
+        "title": "Copy Yesterday's Tasks",
+        "category": "Grind"
+      },
+      {
+        "command": "grind.copy-day",
+        "title": "Copy Day's Tasks",
+        "category": "Grind"
       }
     ],
     "menus": {
