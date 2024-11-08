@@ -43,10 +43,12 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   vscode.commands.registerCommand("grind.copy-yesterday", () => {
-    treeDataProvider.copy(Day.daysAgo(1));
+    treeDataProvider.copy(Day.dayAgo(1));
   });
 
-  vscode.commands.registerCommand("grind.copy-day", () => {});
+  vscode.commands.registerCommand("grind.copy-day", () => {
+    vscode.window.showQuickPick([], {});
+  });
 
   vscode.commands.registerCommand("grind.refresh", () => {
     treeDataProvider.refresh();
