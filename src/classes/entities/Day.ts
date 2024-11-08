@@ -96,9 +96,15 @@ export class Day {
    * @returns An array of formatted date strings for each day going back from today.
    */
   static daysAgo(days: number): string[] {
-    return Array(days).map((_, d): string =>
-      Day.format(dayjs().startOf("day").subtract(d, "day"))
-    );
+    return Array(days)
+      .fill(0)
+      .map((_, d): string =>
+        Day.format(
+          dayjs()
+            .startOf("day")
+            .subtract(d + 1, "day")
+        )
+      );
   }
 
   /**
