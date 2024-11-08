@@ -46,8 +46,16 @@ export function activate(context: vscode.ExtensionContext) {
     treeDataProvider.copy(Day.dayAgo(1));
   });
 
-  vscode.commands.registerCommand("grind.copy-day", () => {
-    vscode.window.showQuickPick([], {});
+  vscode.commands.registerCommand("grind.copy-day", async () => {
+    const options = Day.daysAgo(10);
+
+    const day = await vscode.window.showQuickPick(options, {
+      placeHolder: "Select a day",
+    });
+
+    if (day) {
+      treeDataProvider.copy(day);
+    }
   });
 
   vscode.commands.registerCommand("grind.refresh", () => {
