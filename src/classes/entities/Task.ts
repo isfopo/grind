@@ -1,5 +1,13 @@
 export type TaskId = string;
 
+/**
+ * Represents a task in the task management system.
+ *
+ * The Task class encapsulates all properties and methods related to a task,
+ * including its unique identifier, associated day, label, subtasks, and
+ * completion status. It provides functionality to create, modify,
+ * serialize, and validate tasks, as well as manage subtasks.
+ */
 export class Task {
   id: TaskId;
   day: string;
@@ -19,22 +27,6 @@ export class Task {
     this.label = label;
     this.completed = completed ?? false;
     this.subtasks = tasks ?? [];
-  }
-
-  /**
-   * Converts the Task instance into a JSON string representation.
-   * This includes the task's ID, day, label, subtasks, and completion status.
-   *
-   * @returns {string} - A JSON string representing the Task.
-   */
-  stringify(): string {
-    return JSON.stringify({
-      id: this.id,
-      day: this.day,
-      label: this.label,
-      subtasks: this.subtasks,
-      completed: this.completed,
-    });
   }
 
   /**
