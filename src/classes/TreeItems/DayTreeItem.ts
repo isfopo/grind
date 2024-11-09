@@ -13,7 +13,7 @@ export class DayTreeItem extends vscode.TreeItem {
     this.tooltip = `Tasks for ${day.date.toLocaleString()}`;
     this.contextValue = "day";
     this.collapsibleState =
-      day.date === Day.today()
+      day.date === Day.today
         ? vscode.TreeItemCollapsibleState.Expanded
         : vscode.TreeItemCollapsibleState.Collapsed;
   }

@@ -101,6 +101,43 @@ export class GrindTreeviewProvider
     this.refresh();
   }
 
+  async copy(key: string) {
+    const appendTasks = (tasks: string[], indent: number = 0): string => {
+      let result: string = "";
+
+      for (const task of tasks) {
+        const t = this.storage.get<Task>(task);
+        if (t) {
+          result = result.concat(
+            `${" ".repeat(indent)}- [${t.completed ? "x" : " "}] ${t.label}\n`
+          );
+          result = result + appendTasks(t.subtasks, indent + 2);
+        }
+      }
+
+      return result;
+    };
+
+    if (Day.validate(key)) {
+      const day = this.storage.get<Day>(key);
+
+      if (day) {
+        await vscode.env.clipboard.writeText(appendTasks(day.tasks));
+      } else {
+        vscode.window.showInformationMessage("No tasks found for this day.");
+      }
+    } else if (Task.validate(key)) {
+      const task = this.storage.get<Task>(key);
+
+      if (task) {
+        await vscode.env.clipboard.writeText(appendTasks(task.subtasks));
+      } else {
+        vscode.window.showInformationMessage("No tasks found.");
+      }
+    }
+    vscode.window.showInformationMessage("Tasks copied.");
+  }
+
   refresh(): void {
     try {
       this._onDidChangeTreeData?.fire();
@@ -119,7 +156,7 @@ export class GrindTreeviewProvider
     element?: DayTreeItem | TaskTreeItem | undefined
   ): vscode.ProviderResult<vscode.TreeItem[]> {
     if (element === undefined) {
-      const today = Day.today();
+      const today = Day.today;
 
       const day = Day.parse(this.storage.get(today));
 

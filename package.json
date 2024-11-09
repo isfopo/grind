@@ -3,7 +3,7 @@
   "displayName": "Grind",
   "publisher": "isfopo",
   "description": "A task manager for your daily struggle.",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "icon": "assets/icon.png",
   "preview": true,
   "engines": {
@@ -48,6 +48,21 @@
         "command": "grind.reset",
         "category": "Grind",
         "title": "Reset"
+      },
+      {
+        "command": "grind.copy-today",
+        "title": "Copy Today's Tasks",
+        "category": "Grind"
+      },
+      {
+        "command": "grind.copy-yesterday",
+        "title": "Copy Yesterday's Tasks",
+        "category": "Grind"
+      },
+      {
+        "command": "grind.copy-day",
+        "title": "Copy Day's Tasks",
+        "category": "Grind"
       }
     ],
     "menus": {
