@@ -4,7 +4,7 @@ A VS Code extension to keep track of tasks for the day.
 
 ## Features
 
-You can use this extension to keep track of tasks for the day inside of VS Code. Tasks are strictly associate with days, so this is intended to be a means to keep track of succinct goals for the day. This is not intended to be a replacement for a project management tool, but rather a means to keep track of tasks on a granular level.
+You can use this extension to keep track of tasks for the day inside of VS Code. Tasks are strictly associated with days, so this is intended to be a means to keep track of succinct goals for the day. This is not intended to be a replacement for a project management tool, but rather a means to keep track of tasks on a granular level.
 
 ## Usage
 
