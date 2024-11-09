@@ -5,6 +5,22 @@ import { DayTreeItem } from "../TreeItems/DayTreeItem";
 
 dayjs.extend(dayOfYear);
 
+/**
+ * The Day class represents a specific date and manages tasks associated with that date.
+ *
+ * Each instance of the Day class consists of a date (as a string) and an array of task IDs
+ * associated with that date. This class provides methods to stringify the instance, parse
+ * from JSON or another Day instance, and static methods to obtain formatted dates, validate
+ * date strings, and manipulate the task list for specific days.
+ *
+ * Key functionalities of the Day class include:
+ * - Serializing and deserializing instances to and from JSON.
+ * - Retrieving today’s date and calculating past dates.
+ * - Formatting dates into user-friendly strings.
+ * - Validating date formats to ensure correctness.
+ * - Adding tasks to the current day instance and generating unique IDs for those tasks.
+ * - Converting the Day instance into a DayTreeItem for easy management in a tree structure.
+ */
 export class Day {
   date: string;
   tasks: TaskId[];
@@ -13,25 +29,6 @@ export class Day {
     this.date = date;
     this.tasks = tasks ?? [];
   }
-
-  /**
-   * Converts the current Day instance into a JSON string representation.
-   *
-   * This method serializes the properties of the Day instance, specifically
-   * the `date` and `tasks`, into a JSON string. This can be useful for
-   * storing the Day instance in a format that can be easily transmitted
-   * or stored in databases. The resulting JSON string can be parsed back
-   * into a Day instance or used for other data manipulation purposes.
-   *
-   * @returns A JSON string that represents the current Day instance.
-   */
-  stringify() {
-    return JSON.stringify({
-      date: this.date,
-      tasks: this.tasks,
-    });
-  }
-
   /**
    * Parses a given input into a Day instance or returns undefined.
    *
@@ -67,7 +64,7 @@ export class Day {
    * @returns A formatted date string representing today's date.
    */
   static get today(): string {
-    return Day.format(dayjs().startOf("day"));
+    return Day.toKey(dayjs().startOf("day"));
   }
 
   /**
@@ -81,7 +78,7 @@ export class Day {
    * @returns A formatted date string representing the date from the specified number of days ago.
    */
   static dayAgo(days: number): string {
-    return Day.format(dayjs().startOf("day").subtract(days, "day"));
+    return Day.toKey(dayjs().startOf("day").subtract(days, "day"));
   }
 
   /**
@@ -99,7 +96,7 @@ export class Day {
     return Array(days)
       .fill(0)
       .map((_, d): string =>
-        Day.format(
+        Day.toKey(
           dayjs()
             .startOf("day")
             .subtract(d + 1, "day")
@@ -117,8 +114,26 @@ export class Day {
    * @param day - A Day.js object representing the date to format.
    * @returns A string formatted as "YYYY-MM-DD" representing the given date.
    */
-  static format(day: dayjs.Dayjs) {
+  static toKey(day: dayjs.Dayjs) {
     return day.format("YYYY-MM-DD");
+  }
+
+  /**
+   * Formats a date string into a more human-readable representation.
+   *
+   * This method takes a date string (in a recognized format) and converts
+   * it into a formatted string that specifies the weekday name, the full
+   * month name, and the day of the month. For example, calling this method
+   * with a date string such as "2023-10-23" would return a string like
+   * "Monday, October 23". This can be useful for displaying dates in a
+   * user-friendly manner within the application.
+   *
+   * @param key - The date string to format, which should be in a
+   *              recognizable format by Day.js.
+   * @returns A formatted string representing the date as "Day, Month D".
+   */
+  static format(key: string) {
+    return dayjs(key).format("dddd, MMM D");
   }
 
   /**
