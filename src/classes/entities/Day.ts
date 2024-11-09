@@ -136,7 +136,7 @@ export class Day {
    * @returns A formatted string representing the date as "Day, Month D".
    */
   static format(key: string) {
-    return dayjs(key).format("dddd, MMMM D");
+    return dayjs(key).format("dddd, MMM D");
   }
 
   /**
