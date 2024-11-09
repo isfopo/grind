@@ -121,6 +121,20 @@ export class Day {
     return day.format("YYYY-MM-DD");
   }
 
+  /**
+   * Formats a date string into a more human-readable representation.
+   *
+   * This method takes a date string (in a recognized format) and converts
+   * it into a formatted string that specifies the weekday name, the full
+   * month name, and the day of the month. For example, calling this method
+   * with a date string such as "2023-10-23" would return a string like
+   * "Monday, October 23". This can be useful for displaying dates in a
+   * user-friendly manner within the application.
+   *
+   * @param key - The date string to format, which should be in a
+   *              recognizable format by Day.js.
+   * @returns A formatted string representing the date as "Day, Month D".
+   */
   static format(key: string) {
     return dayjs(key).format("dddd, MMMM D");
   }
