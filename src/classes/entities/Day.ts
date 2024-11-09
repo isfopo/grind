@@ -67,7 +67,7 @@ export class Day {
    * @returns A formatted date string representing today's date.
    */
   static get today(): string {
-    return Day.format(dayjs().startOf("day"));
+    return Day.toKey(dayjs().startOf("day"));
   }
 
   /**
@@ -81,7 +81,7 @@ export class Day {
    * @returns A formatted date string representing the date from the specified number of days ago.
    */
   static dayAgo(days: number): string {
-    return Day.format(dayjs().startOf("day").subtract(days, "day"));
+    return Day.toKey(dayjs().startOf("day").subtract(days, "day"));
   }
 
   /**
@@ -99,7 +99,7 @@ export class Day {
     return Array(days)
       .fill(0)
       .map((_, d): string =>
-        Day.format(
+        Day.toKey(
           dayjs()
             .startOf("day")
             .subtract(d + 1, "day")
@@ -117,8 +117,12 @@ export class Day {
    * @param day - A Day.js object representing the date to format.
    * @returns A string formatted as "YYYY-MM-DD" representing the given date.
    */
-  static format(day: dayjs.Dayjs) {
+  static toKey(day: dayjs.Dayjs) {
     return day.format("YYYY-MM-DD");
+  }
+
+  static format(key: string) {
+    return dayjs(key).format("dddd, MMMM D");
   }
 
   /**
