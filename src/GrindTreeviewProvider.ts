@@ -5,6 +5,7 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
+import { ENABLE_COMPLETIONS } from "./consts";
 
 const STORAGE_SCOPE: "global" | "workspace" = "workspace"; // Allow this to be set to workplace storage via settings
 
@@ -109,7 +110,9 @@ export class GrindTreeviewProvider
         const t = this.storage.get<Task>(task);
         if (t) {
           result = result.concat(
-            `${" ".repeat(indent)}- [${t.completed ? "x" : " "}] ${t.label}\n`
+            `${" ".repeat(indent)}- ${
+              ENABLE_COMPLETIONS ? `[${t.completed ? "x" : " "}]` : ""
+            } ${t.label}\n`
           );
           result = result + appendTasks(t.subtasks, indent + 2);
         }
