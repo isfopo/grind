@@ -45,6 +45,20 @@ export class Storage {
   }
 
   /**
+   * Stores a value associated with the specified key in the storage.
+   * This method is asynchronous, allowing for non-blocking storage of data.
+   * It updates the value corresponding to the provided key, effectively
+   * replacing any existing value.
+   *
+   * @param {string} key - The key associated with the value to be stored.
+   * @param {T} value - The value to be stored under the specified key.
+   * @returns {Promise<void>} - A Promise that resolves when the value has been stored.
+   */
+  public async set<T>(key: string, value: T): Promise<void> {
+    await this.storage.update(key, value);
+  }
+
+  /**
    * Retrieves an array of Day objects from the storage.
    * This method first filters the keys in the storage to only include those
    * that are valid day entries as determined by the `Day.validate` method.
