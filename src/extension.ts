@@ -55,7 +55,19 @@ export function activate(context: vscode.ExtensionContext) {
       const tasks = taskIds?.map((t) => storage.get<Task>(t)) ?? [];
       const labels = tasks.map((t) => t.label);
 
-      const addTo = await vscode.window.showQuickPick(["Add", ...labels], {});
+      const addNewTaskOption = Day.validate(parent)
+        ? `Add task to ${Day.format(parent)}`
+        : `Add subtask`;
+
+      const addToSubtaskPrompt =
+        "Select a task to add a subtask to or add a new task";
+
+      const addTo = await vscode.window.showQuickPick(
+        [addNewTaskOption, ...labels],
+        {
+          placeHolder: addToSubtaskPrompt,
+        }
+      );
 
       if (!addTo) {
         return;
