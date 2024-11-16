@@ -50,8 +50,20 @@ export class Task {
    * @returns {Task} - An instance of the Task class constructed from the JSON string.
    * @throws {SyntaxError} - Thrown if the input string is not valid JSON.
    */
-  static parse(json: string): Task {
-    return JSON.parse(json) as Task;
+  static parse(json: Task | string): Task | undefined {
+    if (!json) {
+      return undefined;
+    } else if (typeof json === "string") {
+      return JSON.parse(json) as Task;
+    } else {
+      return new Task(
+        json.id,
+        json.day,
+        json.label,
+        json.subtasks,
+        json.completed
+      );
+    }
   }
 
   /**

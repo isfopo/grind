@@ -34,6 +34,11 @@
         "icon": "$(add)"
       },
       {
+        "command": "grind.add-to-today",
+        "title": "Add to Today",
+        "category": "Grind"
+      },
+      {
         "command": "grind.edit",
         "title": "Edit",
         "icon": "$(edit)"

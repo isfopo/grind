@@ -3,9 +3,16 @@ import { GrindTreeviewProvider } from "./GrindTreeviewProvider";
 import { DayTreeItem } from "./classes/TreeItems/DayTreeItem";
 import { TaskTreeItem } from "./classes/TreeItems/TaskTreeItem";
 import { Day } from "./classes/entities/Day";
+import { Storage } from "./services/Storage";
+import { STORAGE_SCOPE } from "./consts";
+import { Task } from "./classes/entities/Task";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
+
+  const storage = new Storage(
+    STORAGE_SCOPE === "global" ? context.globalState : context.workspaceState
+  );
 
   vscode.commands.registerCommand(
     "grind.add",
@@ -37,6 +44,47 @@ export function activate(context: vscode.ExtensionContext) {
       treeDataProvider.edit(element, update);
     }
   );
+
+  vscode.commands.registerCommand("grind.add-to-today", async () => {
+    const { date, tasks } = storage.get<Day>(Day.today);
+
+    const addToSubtask = async (
+      parent: string,
+      taskIds: string[] | undefined
+    ) => {
+      const tasks = taskIds?.map((t) => storage.get<Task>(t)) ?? [];
+      const labels = tasks.map((t) => t.label);
+
+      const addTo = await vscode.window.showQuickPick(["Add", ...labels], {});
+
+      if (!addTo) {
+        return;
+      } else if (labels.includes(addTo)) {
+        const task = tasks.find((t) => t.label === addTo);
+        if (task) {
+          await addToSubtask(task?.id, task?.subtasks);
+        }
+      } else if (addTo === "Add") {
+        const newTask = await vscode.window.showInputBox({});
+        if (!newTask) {
+          return;
+        }
+
+        if (Day.validate(parent)) {
+          treeDataProvider.add(Day.parse(storage.get(parent) as Day), newTask);
+        } else if (Task.validate(parent)) {
+          treeDataProvider.add(
+            Task.parse(storage.get(parent) as string),
+            newTask
+          );
+        } else {
+          await vscode.window.showErrorMessage("Invalid parent");
+        }
+      }
+    };
+
+    await addToSubtask(date, tasks);
+  });
 
   vscode.commands.registerCommand("grind.copy-today", () => {
     treeDataProvider.copy(Day.today);

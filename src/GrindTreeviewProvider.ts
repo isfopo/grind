@@ -5,9 +5,7 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
-import { ENABLE_COMPLETIONS } from "./consts";
-
-const STORAGE_SCOPE: "global" | "workspace" = "workspace"; // Allow this to be set to workplace storage via settings
+import { ENABLE_COMPLETIONS, STORAGE_SCOPE } from "./consts";
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -72,16 +70,30 @@ export class GrindTreeviewProvider
     }
   }
 
-  async add(element: DayTreeItem | TaskTreeItem, task: string): Promise<void> {
-    if (element instanceof DayTreeItem) {
+  async add(
+    element: Day | Task | DayTreeItem | TaskTreeItem | undefined,
+    task: string,
+    {
+      onError,
+    }: {
+      onError?: (message: string) => void;
+    } = {}
+  ): Promise<void> {
+    if (!element) {
+      onError?.("Element is undefined");
+      return;
+    }
+
+    if (element instanceof Day || element instanceof DayTreeItem) {
+      const day = element instanceof Day ? element : element.day;
       // generate new task id and add to Day
-      const id = element.day.addTask();
+      const id = day.addTask();
 
       // store new Task
-      this.storage.set(id, new Task(id, element.day.date, task));
+      this.storage.set(id, new Task(id, day.date, task));
 
       // update Day
-      this.storage.set(element.day.date, element.day);
+      this.storage.set(day.date, day);
     } else if (element instanceof TaskTreeItem) {
       // generate new task id and add to Task
       const id = element.task.addSubtask();

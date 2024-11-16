@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
 import { Day } from "../entities/Day.js";
-import { TaskTreeItem } from "./TaskTreeItem.js";
-import { Task } from "../entities/Task.js";
 
 /**
  * Represents a tree item for a specific day within the task management system.
