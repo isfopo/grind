@@ -25,16 +25,10 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand(
     "grind.edit",
     async (element: TaskTreeItem) => {
-      const update = await vscode.window.showInputBox({
-        prompt: `Update task`,
-        value: element.label?.toString() ?? "",
-      });
-
-      if (!update) {
-        return;
-      }
-
-      treeDataProvider.edit(element, update);
+      treeDataProvider.edit(
+        element,
+        await UserInput.promptUpdateTask(element.label?.toString() ?? "")
+      );
     }
   );
 

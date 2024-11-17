@@ -12,4 +12,17 @@ export class UserInput {
 
     return task;
   }
+
+  public static async promptUpdateTask(initial: string): Promise<string> {
+    const task = await vscode.window.showInputBox({
+      prompt: "Update task",
+      value: initial,
+    });
+
+    if (!task) {
+      throw new Error("Task cannot be empty");
+    }
+
+    return task;
+  }
 }
