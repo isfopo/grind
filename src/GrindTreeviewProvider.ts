@@ -72,7 +72,7 @@ export class GrindTreeviewProvider
 
   async add(
     element: Day | Task | DayTreeItem | TaskTreeItem | undefined,
-    task: string,
+    newTask: string,
     {
       onError,
     }: {
@@ -90,19 +90,22 @@ export class GrindTreeviewProvider
       const id = day.addTask();
 
       // store new Task
-      this.storage.set(id, new Task(id, day.date, task));
+      this.storage.set(id, new Task(id, day.date, newTask));
 
       // update Day
       this.storage.set(day.date, day);
-    } else if (element instanceof TaskTreeItem) {
+    } else if (element instanceof Task || element instanceof TaskTreeItem) {
       // generate new task id and add to Task
-      const id = element.task.addSubtask();
+
+      const task = element instanceof Task ? element : element.task;
+
+      const id = task.addSubtask();
 
       // store new Task
-      this.storage.set(id, new Task(id, element.task.day, task));
+      this.storage.set(id, new Task(id, task.day, newTask));
 
       // update Task
-      this.storage.set(element.task.id, element.task);
+      this.storage.set(task.id, task);
     }
 
     this.refresh();
