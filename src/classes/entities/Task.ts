@@ -94,7 +94,7 @@ export class Task {
    * @returns {boolean} - True if the task ID is valid, false otherwise.
    */
   static validate(key: string): boolean {
-    return /^[0-9a-z]{13}[0-9a-z]{12}$/.exec(key) !== null;
+    return /^[a-z0-9]+[a-z0-9]{12,}$/.exec(key) !== null;
   }
 
   /**
