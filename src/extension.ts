@@ -6,6 +6,7 @@ import { Day } from "./classes/entities/Day";
 import { Storage } from "./services/Storage";
 import { STORAGE_SCOPE } from "./consts";
 import { Task } from "./classes/entities/Task";
+import { UserInput } from "./services/UserInput";
 
 export function activate(context: vscode.ExtensionContext) {
   const treeDataProvider = new GrindTreeviewProvider(context).register();
@@ -17,15 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand(
     "grind.add",
     async (element: DayTreeItem | TaskTreeItem) => {
-      const task = await vscode.window.showInputBox({
-        prompt: "Enter task",
-      });
-
-      if (!task) {
-        return;
-      }
-
-      treeDataProvider.add(element, task);
+      treeDataProvider.add(element, await UserInput.promptNewTask());
     }
   );
 
