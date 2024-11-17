@@ -39,6 +39,11 @@
         "category": "Grind"
       },
       {
+        "command": "grind.add-to-day",
+        "title": "Add to Day",
+        "category": "Grind"
+      },
+      {
         "command": "grind.edit",
         "title": "Edit",
         "icon": "$(edit)"

@@ -91,7 +91,9 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   vscode.commands.registerCommand("grind.add-to-day", async () => {
-    const { date, tasks } = storage.get<Day>(Day.today);
+    const { date, tasks } = storage.get<Day>(
+      await UserInput.promptDateSelection()
+    );
 
     await addToSubtask(date, tasks);
   });
