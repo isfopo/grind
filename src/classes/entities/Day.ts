@@ -153,6 +153,10 @@ export class Day {
     return /^\d{4}-\d{2}-\d{2}$/.exec(key) !== null;
   }
 
+  static sort(a: Day, b: Day): number {
+    return a.date.localeCompare(b.date);
+  }
+
   /**
    * Converts the current Day instance into a DayTreeItem representation.
    *

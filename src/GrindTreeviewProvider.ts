@@ -182,7 +182,10 @@ export class GrindTreeviewProvider
         this.storage.set(today, new Day(today));
       }
 
-      return this.storage.getDates().map((d) => new DayTreeItem(d));
+      return this.storage
+        .getDates()
+        .sort(Day.sort)
+        .map((d) => new DayTreeItem(d));
     } else if (element instanceof DayTreeItem) {
       const today = this.storage.get<Day>(element.day.date);
 
