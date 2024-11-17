@@ -83,7 +83,9 @@ export function activate(context: vscode.ExtensionContext) {
           await addToSubtask(task?.id, task?.subtasks);
         }
       } else if (addTo === addNewTaskOption) {
-        const newTask = await vscode.window.showInputBox({});
+        const newTask = await vscode.window.showInputBox({
+          prompt: "Add a new task",
+        });
         if (!newTask) {
           return;
         }
