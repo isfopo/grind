@@ -32,63 +32,66 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const addToSubtask = async (
+    parent: string,
+    taskIds: string[] | undefined
+  ) => {
+    const tasks = taskIds?.map((t) => storage.get<Task>(t)) ?? [];
+    const labels = tasks.map((t) => t.label);
+
+    let addTo;
+
+    const addNewTaskOption = Day.validate(parent)
+      ? `Add task to ${Day.format(parent)}`
+      : `Add subtask`;
+
+    const addToSubtaskPrompt =
+      "Select a task to add a subtask to or add a new task";
+
+    if (taskIds && taskIds.length > 0) {
+      addTo = await vscode.window.showQuickPick([addNewTaskOption, ...labels], {
+        placeHolder: addToSubtaskPrompt,
+      });
+    } else {
+      addTo = addNewTaskOption;
+    }
+
+    if (!addTo) {
+      return;
+    } else if (labels.includes(addTo)) {
+      const task = tasks.find((t) => t.label === addTo);
+      if (task) {
+        await addToSubtask(task?.id, task?.subtasks);
+      }
+    } else if (addTo === addNewTaskOption) {
+      const newTask = await vscode.window.showInputBox({
+        prompt: "Add a new task",
+      });
+      if (!newTask) {
+        return;
+      }
+
+      if (Day.validate(parent)) {
+        treeDataProvider.add(Day.parse(storage.get(parent) as Day), newTask);
+      } else if (Task.validate(parent)) {
+        treeDataProvider.add(
+          Task.parse(storage.get(parent) as string),
+          newTask
+        );
+      } else {
+        await vscode.window.showErrorMessage("Invalid parent");
+      }
+    }
+  };
+
   vscode.commands.registerCommand("grind.add-to-today", async () => {
     const { date, tasks } = storage.get<Day>(Day.today);
 
-    const addToSubtask = async (
-      parent: string,
-      taskIds: string[] | undefined
-    ) => {
-      const tasks = taskIds?.map((t) => storage.get<Task>(t)) ?? [];
-      const labels = tasks.map((t) => t.label);
+    await addToSubtask(date, tasks);
+  });
 
-      let addTo;
-
-      const addNewTaskOption = Day.validate(parent)
-        ? `Add task to ${Day.format(parent)}`
-        : `Add subtask`;
-
-      const addToSubtaskPrompt =
-        "Select a task to add a subtask to or add a new task";
-
-      if (taskIds && taskIds.length > 0) {
-        addTo = await vscode.window.showQuickPick(
-          [addNewTaskOption, ...labels],
-          {
-            placeHolder: addToSubtaskPrompt,
-          }
-        );
-      } else {
-        addTo = addNewTaskOption;
-      }
-
-      if (!addTo) {
-        return;
-      } else if (labels.includes(addTo)) {
-        const task = tasks.find((t) => t.label === addTo);
-        if (task) {
-          await addToSubtask(task?.id, task?.subtasks);
-        }
-      } else if (addTo === addNewTaskOption) {
-        const newTask = await vscode.window.showInputBox({
-          prompt: "Add a new task",
-        });
-        if (!newTask) {
-          return;
-        }
-
-        if (Day.validate(parent)) {
-          treeDataProvider.add(Day.parse(storage.get(parent) as Day), newTask);
-        } else if (Task.validate(parent)) {
-          treeDataProvider.add(
-            Task.parse(storage.get(parent) as string),
-            newTask
-          );
-        } else {
-          await vscode.window.showErrorMessage("Invalid parent");
-        }
-      }
-    };
+  vscode.commands.registerCommand("grind.add-to-day", async () => {
+    const { date, tasks } = storage.get<Day>(Day.today);
 
     await addToSubtask(date, tasks);
   });
@@ -102,15 +105,7 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   vscode.commands.registerCommand("grind.copy-day", async () => {
-    const options = Day.daysAgo(10);
-
-    const day = await vscode.window.showQuickPick(options, {
-      placeHolder: "Select a day",
-    });
-
-    if (day) {
-      treeDataProvider.copy(day);
-    }
+    treeDataProvider.copy(await UserInput.promptDateSelection());
   });
 
   vscode.commands.registerCommand("grind.refresh", () => {

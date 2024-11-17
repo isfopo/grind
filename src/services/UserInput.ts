@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { Day } from "../classes/entities/Day";
 
 export class UserInput {
   public static async promptNewTask(): Promise<string> {
@@ -24,5 +25,19 @@ export class UserInput {
     }
 
     return task;
+  }
+
+  public static async promptDateSelection(daysAgo: number = 10) {
+    const options = Day.daysAgo(daysAgo);
+
+    const day = await vscode.window.showQuickPick(options, {
+      placeHolder: "Select a day",
+    });
+
+    if (!day) {
+      throw new Error("No day selected");
+    }
+
+    return day;
   }
 }
