@@ -105,6 +105,29 @@ export class Day {
   }
 
   /**
+   * Returns an array of formatted date strings representing the specified number of days ahead from today.
+   *
+   * This method generates a list where each entry corresponds to a future day, starting from
+   * today and going forward the given number of days. For example, calling `daysAhead(3)`
+   * would return an array containing today's date and the two subsequent days in the format
+   * "YYYY-MM-DD".
+   *
+   * @param days - The number of days to go forward from today.
+   * @returns An array of formatted date strings for each day going forward from today.
+   */
+  static daysAhead(days: number): string[] {
+    return Array(days)
+      .fill(0)
+      .map((_, d): string =>
+        Day.toKey(
+          dayjs()
+            .startOf("day")
+            .add(d + 1, "day")
+        )
+      );
+  }
+
+  /**
    * Formats a Day.js object into a string representation of the date.
    *
    * This method converts a Day.js instance into a formatted date string in the
