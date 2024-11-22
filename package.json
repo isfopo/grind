@@ -39,6 +39,11 @@
         "category": "Grind"
       },
       {
+        "command": "grind.add-to-tomorrow",
+        "title": "Add to Tomorrow",
+        "category": "Grind"
+      },
+      {
         "command": "grind.add-to-day",
         "title": "Add to Day",
         "category": "Grind"

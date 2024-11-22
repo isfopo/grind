@@ -82,6 +82,20 @@ export class Day {
   }
 
   /**
+   * Returns a formatted date string representing the specified number of days ahead from today.
+   *
+   * This method calculates the date that is the given number of days in the future from today
+   * and returns it in the format "YYYY-MM-DD". For example, calling `dayAhead(3)` would return
+   * the date string corresponding to three days after today.
+   *
+   * @param days - The number of days to go forward from today.
+   * @returns A formatted date string representing the date from the specified number of days ahead.
+   */
+  static dayAhead(days: number): string {
+    return Day.toKey(dayjs().startOf("day").add(days, "day"));
+  }
+
+  /**
    * Returns an array of formatted date strings representing the specified number of days ago.
    *
    * This method generates a list where each entry corresponds to a day, starting from
