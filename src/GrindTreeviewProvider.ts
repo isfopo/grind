@@ -5,7 +5,13 @@ import { Logger } from "./services/Logger";
 import { Storage } from "./services/Storage";
 import { Day } from "./classes/entities/Day";
 import { Task } from "./classes/entities/Task";
-import { ENABLE_COMPLETIONS, STORAGE_SCOPE } from "./consts";
+import {
+  ENABLE_COMPLETIONS,
+  EXPORT_FORMAT,
+  SPACES_IN_INDENT,
+  STORAGE_SCOPE,
+} from "./consts";
+import { BULLETS } from "./helpers/characters";
 
 export class GrindTreeviewProvider
   implements vscode.TreeDataProvider<vscode.TreeItem>
@@ -124,12 +130,23 @@ export class GrindTreeviewProvider
       for (const task of tasks) {
         const t = this.storage.get<Task>(task);
         if (t) {
-          result = result.concat(
-            `${" ".repeat(indent)}- ${
-              ENABLE_COMPLETIONS ? `[${t.completed ? "x" : " "}]` : ""
-            } ${t.label}\n`
-          );
-          result = result + appendTasks(t.subtasks, indent + 2);
+          switch (EXPORT_FORMAT) {
+            case "markdown":
+              result = result.concat(
+                `${" ".repeat(indent * SPACES_IN_INDENT)}- ${
+                  ENABLE_COMPLETIONS ? `[${t.completed ? "x" : " "}]` : ""
+                } ${t.label}\n`
+              );
+            case "richtext":
+              result = result.concat(
+                `${" ".repeat(indent * SPACES_IN_INDENT)}${
+                  BULLETS[indent % 3]
+                } ${ENABLE_COMPLETIONS ? `[${t.completed ? "x" : " "}]` : ""} ${
+                  t.label
+                }\n`
+              );
+          }
+          result = result + appendTasks(t.subtasks, indent + 1);
         }
       }
 
