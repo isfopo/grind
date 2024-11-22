@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import { Day } from "../classes/entities/Day";
+import dayjs = require("dayjs");
 
 export class UserInput {
   public static async promptNewTask(): Promise<string> {
@@ -27,17 +28,22 @@ export class UserInput {
     return task;
   }
 
-  public static async promptDateSelection(daysAgo: number = 10) {
-    const options = Day.daysAgo(daysAgo);
+  public static async promptDateSelection(
+    daysAgo: number = 10
+  ): Promise<string> {
+    const options = Day.daysAgo(daysAgo).reduce((acc, d) => {
+      acc[Day.format(d)] = d;
+      return acc;
+    }, {} as Record<string, string>);
 
-    const day = await vscode.window.showQuickPick(options, {
+    const day = await vscode.window.showQuickPick(Object.keys(options), {
       placeHolder: "Select a day",
     });
 
     if (!day) {
       throw new Error("No day selected");
+    } else {
+      return options[day];
     }
-
-    return day;
   }
 }

@@ -114,7 +114,10 @@ export class Day {
    * @param day - A Day.js object representing the date to format.
    * @returns A string formatted as "YYYY-MM-DD" representing the given date.
    */
-  static toKey(day: dayjs.Dayjs) {
+  static toKey(day: dayjs.Dayjs | string) {
+    if (typeof day === "string") {
+      day = dayjs(day);
+    }
     return day.format("YYYY-MM-DD");
   }
 
