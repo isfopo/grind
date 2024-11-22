@@ -118,7 +118,8 @@ export class GrindTreeviewProvider
   }
 
   async edit(element: TaskTreeItem, update: string): Promise<void> {
-    // Edit given todo
+    const task = this.storage.get<Task>(element.task.id);
+    this.storage.set(task.id, { ...task, label: update });
 
     this.refresh();
   }
