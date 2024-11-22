@@ -31,7 +31,11 @@ export class UserInput {
   public static async promptDateSelection(
     daysAgo: number = 10
   ): Promise<string> {
-    const options = Day.daysAgo(daysAgo).reduce((acc, d) => {
+    const options = [
+      ...Day.daysAhead(daysAgo),
+      Day.today,
+      ...Day.daysAgo(daysAgo),
+    ].reduce((acc, d) => {
       acc[Day.format(d)] = d;
       return acc;
     }, {} as Record<string, string>);

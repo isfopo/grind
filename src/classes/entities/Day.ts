@@ -124,7 +124,8 @@ export class Day {
             .startOf("day")
             .add(d + 1, "day")
         )
-      );
+      )
+      .reverse();
   }
 
   /**
