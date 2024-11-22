@@ -44,6 +44,19 @@ export class Storage {
     return this.storage.get<T>(key, null as T);
   }
 
+  public async getOrCreateDay(key: string): Promise<Day | null> {
+    const value = this.storage.get<Day | null>(key, null);
+    if (!value) {
+      if (Day.validate(key)) {
+        const day = new Day(key);
+        await this.storage.update(key, day);
+        return day as Day;
+      }
+      return this.storage.get<Day | null>(key, null);
+    }
+    return value;
+  }
+
   /**
    * Stores a value associated with the specified key in the storage.
    * This method is asynchronous, allowing for non-blocking storage of data.

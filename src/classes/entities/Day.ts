@@ -82,6 +82,20 @@ export class Day {
   }
 
   /**
+   * Returns a formatted date string representing the specified number of days ahead from today.
+   *
+   * This method calculates the date that is the given number of days in the future from today
+   * and returns it in the format "YYYY-MM-DD". For example, calling `dayAhead(3)` would return
+   * the date string corresponding to three days after today.
+   *
+   * @param days - The number of days to go forward from today.
+   * @returns A formatted date string representing the date from the specified number of days ahead.
+   */
+  static dayAhead(days: number): string {
+    return Day.toKey(dayjs().startOf("day").add(days, "day"));
+  }
+
+  /**
    * Returns an array of formatted date strings representing the specified number of days ago.
    *
    * This method generates a list where each entry corresponds to a day, starting from
@@ -105,6 +119,30 @@ export class Day {
   }
 
   /**
+   * Returns an array of formatted date strings representing the specified number of days ahead from today.
+   *
+   * This method generates a list where each entry corresponds to a future day, starting from
+   * today and going forward the given number of days. For example, calling `daysAhead(3)`
+   * would return an array containing today's date and the two subsequent days in the format
+   * "YYYY-MM-DD".
+   *
+   * @param days - The number of days to go forward from today.
+   * @returns An array of formatted date strings for each day going forward from today.
+   */
+  static daysAhead(days: number): string[] {
+    return Array(days)
+      .fill(0)
+      .map((_, d): string =>
+        Day.toKey(
+          dayjs()
+            .startOf("day")
+            .add(d + 1, "day")
+        )
+      )
+      .reverse();
+  }
+
+  /**
    * Formats a Day.js object into a string representation of the date.
    *
    * This method converts a Day.js instance into a formatted date string in the
@@ -114,7 +152,10 @@ export class Day {
    * @param day - A Day.js object representing the date to format.
    * @returns A string formatted as "YYYY-MM-DD" representing the given date.
    */
-  static toKey(day: dayjs.Dayjs) {
+  static toKey(day: dayjs.Dayjs | string) {
+    if (typeof day === "string") {
+      day = dayjs(day);
+    }
     return day.format("YYYY-MM-DD");
   }
 
