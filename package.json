@@ -22,8 +22,7 @@
   "main": "./out/extension.js",
   "contributes": {
     "activationEvents": [
-      "onCommand:grind.refresh",
-      "onCommand:grind.reset",
+      "onCommand:*",
       "onView:grind-explorer",
       "onView:grind-sidebar"
     ],
