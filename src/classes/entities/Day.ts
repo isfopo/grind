@@ -195,7 +195,7 @@ export class Day {
   }
 
   static sort(a: Day, b: Day): number {
-    return a.date.localeCompare(b.date);
+    return b.date.localeCompare(a.date);
   }
 
   /**
