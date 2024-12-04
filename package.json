@@ -3,7 +3,7 @@
   "displayName": "Grind",
   "publisher": "isfopo",
   "description": "A task manager for your daily struggle.",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "icon": "assets/icon.png",
   "preview": true,
   "engines": {
