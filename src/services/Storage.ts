@@ -40,8 +40,8 @@ export class Storage {
    * @param {string} key - The key associated with the value to retrieve.
    * @returns {T} - The value associated with the key, or null if the key does not exist.
    */
-  public get<T>(key: string): T {
-    return this.storage.get<T>(key, null as T);
+  public get<T>(key: string, defaultValue?: T): T {
+    return this.storage.get<T>(key, defaultValue ?? (null as T));
   }
 
   public async getOrCreateDay(key: string): Promise<Day | null> {
